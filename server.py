@@ -18,6 +18,7 @@ def serve_index():
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers['Content-Security-Policy'] = "default-src 'self';"
     return response
 
 @app.route('/codeverify')
