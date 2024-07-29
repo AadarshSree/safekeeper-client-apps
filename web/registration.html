@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safekeeper Registration Page</title>
+
+    <!-- Safekeeper -->
+    <script src="./js/safekeeperClient.js"></script>
+    
+    <script src="jquery-3.7.1.slim.min.js"></script>
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn:disabled:hover {
+            cursor: not-allowed;
+        }
+        .btn:disabled {
+            background-color: #fb7070;
+        }
+    </style>
+
+<script>
+
+    async function startOnLoad(){
+
+        console.log("[*] Hello World")
+
+        try {
+
+            await dhkeKeyGen();
+            alertify.set('notifier','position', 'top-right')
+            alertify.success("Safekeeper Connection Established!")
+            
+        } catch (error) {
+            
+            console.log("Safekeeper Connection Failed")
+            alertify.set('notifier','position', 'top-right')
+            alertify.error("Error Establishing Connection to Safekeeper")
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').innerHTML = "DISABLED"
+
+
+        }
+
+    }
+</script>
+
+</head>
+<body onload="startOnLoad()">
+    <div class="container">
+        <h2>Register</h2>
+
+        <form onsubmit="return false;" action="/" method="post">
+            <div class="form-group">
+                <label for="nameField">Name</label>
+                <input type="text" id="nameField" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="usernameField">Username</label>
+                <input type="text" id="usernameField" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="emailField">Email</label>
+                <input type="email" id="emailField" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="passwordField">Password</label>
+                <input type="password" id="passwordField" name="password" required>
+            </div>
+        </form>
+        <button id="submitBtn" type="button" onclick="btnClick()" class="btn">Register</button>
+    </div>
+
+<script>
+    async function btnClick(){
+        alertify.set('notifier','position', 'top-right');
+
+        let formDetails = {
+            name : document.getElementById("nameField").value,
+            username : document.getElementById('usernameField').value,
+            email : document.getElementById('emailField').value,
+            password : document.getElementById('passwordField').value
+        }
+
+        alertify.success('Form Details: '+formDetails.name+" | "+formDetails.username+" | "+formDetails.email+" = "+formDetails.password);
+    
+        //
+        try {
+            let sgx_hmac = await sgxHmacUserPassword(formDetails.password)
+            alertify.success("SGX HMAC: "+sgx_hmac)
+        } catch (error) {
+            console.error(error)
+        }
+        
+
+    
+    }
+
+    
+
+
+</script>
+<script id="binary-transparency-manifest" type="application/json"></script>
+
+<!-- NO NEED OF HIGHLIGTING using DOM CLICK thing
+    CUZ JS VERIFIED 
+    a way to verify web apps authenticity
+
+
+    auto highlightin onload
+    every web dev decides how they encr the data
+    and inform the user
+
+    info direct to secure enclave
+    server has no access to data
+
+    how can we audit the code? is it limitation for obfuscated/min/closedSrc 
+    Automated checks for security req? -- not reading form contents and sending it somewhere else
+    do we need to modify the browser ext to dothe abv^
+
+    1 extension for all websites to verify JS -- accountableJS/CodeVerify/...
+-->
+
+</body>
+</html>
