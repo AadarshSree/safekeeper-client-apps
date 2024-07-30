@@ -18,8 +18,15 @@ def serve_index():
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers['Content-Security-Policy'] = "default-src 'self';"
+
+    # cspHeaderString = "default-src 'self' *; style-src 'self' * 'unsafe-inline' ; script-src 'self' * 'unsafe-inline';"
+    cspHeaderString = "default-src 'self' ; style-src 'self' * 'unsafe-inline' ; script-src 'self' ; connect-src *;  worker-src 'self';"
+
+    response.headers['content-security-policy'] =  cspHeaderString
+    response.headers['content-security-policy-report-only'] =  cspHeaderString+" report-uri / ;"
     return response
+
+
 
 @app.route('/codeverify')
 def getRootHash():
@@ -28,4 +35,4 @@ def getRootHash():
 
 if __name__ == '__main__':
     context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
-    app.run(host='0.0.0.0', port=PORT, ssl_context=context)
+    app.run(host='0.0.0.0', port=PORT, ssl_context=context, debug=True)
