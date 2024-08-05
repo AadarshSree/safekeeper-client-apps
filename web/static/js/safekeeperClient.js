@@ -108,7 +108,8 @@ async function dhkeKeyGen() {
   await fetch(SERVER_URL+"/dhke", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(clientPubKey)
+    body: JSON.stringify(clientPubKey),
+    credentials: "include"
   })
     .then(response => response.json()) // Parse the JSON response
     .then(data => responseFromServer = data) // Handle the response data
@@ -245,7 +246,8 @@ async function sgxHmacUserPassword( userPassword ){
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify(encrypted_json)
+            body: JSON.stringify(encrypted_json),
+            credentials: "include"
           });
       
           if (!response.ok) {
@@ -306,7 +308,8 @@ async function mainFunction() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(encrypted_json)
+        body: JSON.stringify(encrypted_json),
+        credentials: "include"
       });
   
       if (!response.ok) {
