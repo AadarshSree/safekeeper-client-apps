@@ -16,7 +16,7 @@ PORT = "8080"
 def index():
     return '<h1>Hello from Server</h1>'
 
-@app.route('/index')
+@app.route('/register')
 def serve_index():
     response = make_response(send_from_directory('./web', 'registration.html'))
     response.headers.add('Access-Control-Allow-Origin', '*')
