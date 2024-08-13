@@ -16,6 +16,21 @@ PORT = "8080"
 def index():
     return '<h1>Hello from Server</h1>'
 
+@app.route('/login')
+def serve_login_page():
+    response = make_response(send_from_directory('./web', 'loginPage.html'))
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+
+    # cspHeaderString = "default-src 'self' *; style-src 'self' * 'unsafe-inline' ; script-src 'self' * 'unsafe-inline';"
+    cspHeaderString = "default-src 'self' ; style-src 'self' * 'unsafe-inline' ; script-src 'self' ; connect-src *;  worker-src *;"
+
+
+    response.headers['content-security-policy'] =  cspHeaderString
+    response.headers['content-security-policy-report-only'] =  cspHeaderString+" report-uri / ;"
+    return response
+
 @app.route('/register')
 def serve_index():
     response = make_response(send_from_directory('./web', 'registration.html'))

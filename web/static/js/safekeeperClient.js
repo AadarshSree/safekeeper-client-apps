@@ -241,7 +241,7 @@ async function sgxHmacUserPassword( userPassword ){
         // post req to server sending the ENC passwd
     
         try {
-          const response = await fetch(SERVER_URL+'/storeSecret', {
+          const response = await fetch(SERVER_URL+'/hmacSGX', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -275,61 +275,61 @@ async function sgxHmacUserPassword( userPassword ){
 
 }
 
-async function mainFunction() {
+// async function mainFunction() {
 
-  await dhkeKeyGen();
+//   await dhkeKeyGen();
 
-  // after DHKE GEN
+//   // after DHKE GEN
 
-  // await snooze(2000)
+//   // await snooze(2000)
 
-  let userPassword = "hahaha123456789$";
+//   let userPassword = "hahaha123456789$";
 
-  console.log(DHKE_SHARED_KEY)
-  if (DHKE_SHARED_KEY != "") {
+//   console.log(DHKE_SHARED_KEY)
+//   if (DHKE_SHARED_KEY != "") {
 
 
-    encrypted_json = await secretAesEncryption(DHKE_SHARED_KEY, userPassword)
+//     encrypted_json = await secretAesEncryption(DHKE_SHARED_KEY, userPassword)
 
-    // post req to server sending the ENC passwd
-    console.log(encrypted_json)
-    // await fetch(SERVER_URL+"/storeSecret", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(encrypted_json)
-    // })
-    //   .then(response => console.log(response)) // Parse the JSON response
-    //   .then(data => data) // Handle the response data
-    //   .catch(error => console.error(error));
+//     // post req to server sending the ENC passwd
+//     console.log(encrypted_json)
+//     // await fetch(SERVER_URL+"/storeSecret", {
+//     //   method: "POST",
+//     //   headers: { "Content-Type": "application/json" },
+//     //   body: JSON.stringify(encrypted_json)
+//     // })
+//     //   .then(response => console.log(response)) // Parse the JSON response
+//     //   .then(data => data) // Handle the response data
+//     //   .catch(error => console.error(error));
 
-    try {
-      const response = await fetch(SERVER_URL+'/storeSecret', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(encrypted_json),
-        credentials: "include"
-      });
+//     try {
+//       const response = await fetch(SERVER_URL+'/hmacSGX', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(encrypted_json),
+//         credentials: "include"
+//       });
   
-      if (!response.ok) {
-        throw new Error('BAD Server Response: ' + response.statusText);
-      }
+//       if (!response.ok) {
+//         throw new Error('BAD Server Response: ' + response.statusText);
+//       }
   
-      const data = await response;  // Assuming the server responds with JSON
-      console.log('Success:', data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+//       const data = await response;  // Assuming the server responds with JSON
+//       console.log('Success:', data);
+//     } catch (error) {
+//       console.error('Error:', error);
+//     }
 
     
-    console.log("+-+-+-+-+-+-+-+")
+//     console.log("+-+-+-+-+-+-+-+")
 
-  } else {
-    console.error("[!] DHKE SHARED KEY NOT SET")
-  }
+//   } else {
+//     console.error("[!] DHKE SHARED KEY NOT SET")
+//   }
 
-}
+// }
 
 
 

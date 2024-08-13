@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <meta http-equiv="content-security-policy" content="default-src 'self' ; style-src 'self' * 'unsafe-inline' ; script-src 'self' ; connect-src *;  worker-src 'self';"> -->
+
+    <title>Safekeeper Login Page</title>
+
+    <!-- Safekeeper -->
+    <script src="./js/safekeeperClient.js" data-btmanifest="11223344_main"></script>
+    <!-- <script src="./js/errortest.js" data-btmanifest="11223344_main"></script> -->
+    
+    <!-- <script src="./js/jquery-3.7.1.slim.min.js" data-btmanifest="1015220516_main"></script> -->
+    
+    <!-- JavaScript -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js" data-btmanifest="1015220516_main"></script> -->
+    <script src="./js/alertify.min.js" data-btmanifest="11223344_main"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="./css/default.min.css"/>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn:disabled:hover {
+            cursor: not-allowed;
+        }
+        .btn:disabled {
+            background-color: #fb7070;
+        }
+    </style>
+
+
+<script src="./js/loginScripts.js" data-btmanifest="11223344_main"></script>
+<!-- <script src="./js/registrationScripts.js" data-btmanifest="11223344_main"></script> -->
+
+
+</head>
+<body >
+    <div class="container">
+        <h2>Login</h2>
+
+        <form action="/" method="post">
+            <!-- <div class="form-group">
+                <label for="nameField">Name</label>
+                <input type="text" id="nameField" name="name" required>
+            </div> -->
+            <div class="form-group">
+                <label for="usernameField">Username</label>
+                <input type="text" id="usernameField" name="username" required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="emailField">Email</label>
+                <input type="email" id="emailField" name="email" required>
+            </div> -->
+            <div class="form-group">
+                <label for="passwordField">Password</label>
+                <input type="password" id="passwordField" name="password" required>
+            </div>
+        </form>
+        <button id="submitBtn" type="button"  class="btn">Login</button>
+    </div>
+
+
+
+
+<script id="binary-transparency-manifest" type="application/json" data-manifest-rev="11223344" data-manifest-type="main">
+
+    {"manifest":["9261efb3407e3a9096e4654750d8eff6b3a663422f48845c7fbcc65034c340cf","ab687dd72d02dfa550df87e9734862eeaf85ab4b1cc9205d4387775c4aa50561","cb1d39a1e5cacaff5d2ee78770996d3c0f75a6f2a46fa6a960ae729b20a9244f","e9aa13e4e0c000691052980d2a0afe7e9dde33fd08293ea794b44612d5e1116e"],
+    "manifest_hashes":{"longtail":"088dfa2f7ce37f4411251410feb1fdbba0a96ae9f67e008646b6bef14cf7910a",
+    "main":"088dfa2f7ce37f4411251410feb1fdbba0a96ae9f67e008646b6bef14cf7910a",
+    "combined_hash":"8bdf484ba85de6ada347805c19a25cd5874257ac892eed3ff14389cb06bf2a08"}}
+</script>
+
+<!-- NO NEED OF HIGHLIGTING using DOM CLICK thing
+    CUZ JS VERIFIED 
+    a way to verify web apps authenticity
+
+
+    auto highlightin onload
+    every web dev decides how they encr the data
+    and inform the user
+
+    info direct to secure enclave
+    server has no access to data
+
+    how can we audit the code? is it limitation for obfuscated/min/closedSrc 
+    Automated checks for security req? -- not reading form contents and sending it somewhere else
+    do we need to modify the browser ext to dothe abv^
+
+    1 extension for all websites to verify JS -- accountableJS/CodeVerify/...
+-->
+
+</body>
+</html>
