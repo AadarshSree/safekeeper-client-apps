@@ -8,13 +8,14 @@ app = Flask(__name__ ,
             static_url_path='', 
             static_folder='web/static')
 
-HOST_NAME = "safekeeper.dev"
+HOST_NAME = "geralt.csrl.info"
+# HOST_NAME = "safekeeper.dev"
 PORT = "8080"
 
 
 @app.route('/')
 def index():
-    return '<h1>Hello from Server</h1>'
+    return '<h1>Hello from Flask Server</h1>'
 
 @app.route('/login')
 def serve_login_page():
@@ -125,5 +126,5 @@ def generate_cv_manifest():
 
 
 if __name__ == '__main__':
-    context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
-    app.run(host='0.0.0.0', port=PORT, ssl_context=context, debug=True)
+    # context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
+    app.run(host='0.0.0.0', port=PORT, debug=True)
