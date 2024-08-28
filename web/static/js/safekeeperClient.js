@@ -2,7 +2,8 @@ console.log("Hello world from Safekeeper Client")
 
 let DHKE_SHARED_KEY = ""
 
-const SERVER_URL = "https://safekeeper.dev:9021"
+const SERVER_URL = "https://keen.csrl.info/safekeeper"
+// const SERVER_URL = "https://safekeeper.dev:9021"
 
 //below are helper functions for str<->arraybuffer
 function ab2str(buf) {

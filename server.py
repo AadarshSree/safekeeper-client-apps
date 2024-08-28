@@ -126,5 +126,6 @@ def generate_cv_manifest():
 
 
 if __name__ == '__main__':
-    # context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
+    app.run(host='0.0.0.0', port=PORT, ssl_context = context , debug=True) # do not use this line on PROD SERVER AS HTTPS IS CONFIGURED IN APACHE
+    # app.run(host='0.0.0.0', port=PORT, debug=True)
