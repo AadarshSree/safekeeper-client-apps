@@ -2,8 +2,9 @@ console.log("Hello world from Safekeeper Client")
 
 let DHKE_SHARED_KEY = ""
 
-const SERVER_URL = "https://keen.csrl.info/safekeeper"
 // const SERVER_URL = "https://safekeeper.dev:9021"
+const SERVER_URL = "https://keen.csrl.info/safekeeper"
+const QUOTEVERIFY_URL = "https://keen.csrl.info/quoteverify"
 
 //below are helper functions for str<->arraybuffer
 function ab2str(buf) {
@@ -178,6 +179,49 @@ async function dhkeKeyGen() {
     return
   }
 
+  // Let's now verify the SGX_QUOTE
+
+  const response = await fetch(QUOTEVERIFY_URL+'/verifySgxQuote', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(  {SGX_QUOTE: responseFromServer.SGX_QUOTE} ),
+    credentials: "include"
+  });
+
+  if (!response.ok) {
+    throw new Error('BAD Verification Server Response: ' + response.statusText);
+  }
+
+  const responseData = await response.json();
+
+  console.log("[*] responseData: ",responseData)
+
+  if(responseData.quoteVerified == "YES"){
+    console.log("[*] QUOTE VERIFIED!!!")
+  }else{
+    console.log("[!] FAILED TO VERIFY QUOTE... EXITING... ")
+    // throw new Error("[!] FAILED TO VERIFY QUOTE... EXITING... ")
+    const error = new Error("[!] FAILED TO VERIFY QUOTE... EXITING...")
+    error.code = "QUOTE_VERIFICATION_FAILED"
+    throw error    
+  }
+
+  // quoteData
+  let hashOfPubKey = await ComputeSHA256(responseFromServer.publicKey)
+
+  if(hashOfPubKey == responseData.quoteData){
+    console.log("DATA MATCH!")
+    alertify.set("notifier", "position", "top-right");
+    alertify.success("SGX Quote Data Matches!");
+  }
+  else{
+    console.log("NOT DATA MATCH!")
+  }
+
+
+
 
 }
 
@@ -189,6 +233,22 @@ function ab2b64(buffer) {
     binary += String.fromCharCode(bytes[i]);
   }
   return btoa(binary);
+}
+
+// SHA 256 FUNCTION 
+
+async function ComputeSHA256(message) {
+  // Encode the input string as a Uint8Array (binary format)
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+
+  // Use the SubtleCrypto interface to perform the SHA-256 hash operation
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+  // Convert the ArrayBuffer to hex string
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
 }
 
 //AES ENC func

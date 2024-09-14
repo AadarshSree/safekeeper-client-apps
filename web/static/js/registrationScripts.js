@@ -36,11 +36,27 @@ async function startOnLoad() {
         alertify.set("notifier", "position", "top-right");
         alertify.success("Safekeeper Connection Established!");
     } catch (error) {
-        console.log("Safekeeper Connection Failed");
-        alertify.set("notifier", "position", "top-right");
-        alertify.error("Error Establishing Connection to Safekeeper");
-        document.getElementById("submitBtn").disabled = true;
-        document.getElementById("submitBtn").innerHTML = "DISABLED";
+
+        if(error.code === "QUOTE_VERIFICATION_FAILED"){
+
+            console.log("SGX Quote Verification Failed");
+            alertify.set("notifier", "position", "top-right");
+            alertify.error("SGX Quote Verification Failed");
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("submitBtn").innerHTML = "DISABLED";
+
+        }
+        else{
+
+            console.log("Safekeeper Connection Failed");
+            alertify.set("notifier", "position", "top-right");
+            alertify.error("Error Establishing Connection to Safekeeper");
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("submitBtn").innerHTML = "DISABLED";
+
+        }
+
+        
     }
 
     const submitBtn = document.getElementById('submitBtn');
