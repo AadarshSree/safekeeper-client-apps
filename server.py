@@ -8,7 +8,7 @@ app = Flask(__name__ ,
             static_url_path='', 
             static_folder='web/static')
 
-HOST_NAME = "geralt.csrl.info"
+HOST_NAME = "keen.csrl.info"
 # HOST_NAME = "safekeeper.dev"
 PORT = "8080"
 
@@ -57,7 +57,7 @@ def add_header(response):
 @app.route('/codeverify')
 def getRootHash():
     # {"origin":"whatsapp.com","version":"1015251365","root_hash":"d001608791c63855dd0059a788cc68df66f2f61576f55aec57435554b201d26a","published_date":1722326107}
-    jsonResponse = {"origin":"safekeeper.dev",
+    jsonResponse = {"origin":"keen.csrl.info",
                     "version":"11223344",
                     "root_hash":"8bdf484ba85de6ada347805c19a25cd5874257ac892eed3ff14389cb06bf2a08",
                     "published_date":1722353508}
@@ -73,7 +73,8 @@ def getRootHash():
 
 @app.route('/generateManifest')
 def generate_cv_manifest():
-    build_path = "./web/static/js"
+    # build_path = "./web/static/js"
+    build_path = "/var/www/safekeeper-client-apps/web/static/js"
     all_files = glob.glob(os.path.join(build_path, "**/*.js"), recursive=True)
 
     hash_array = []

@@ -22,7 +22,7 @@ async function btnClick() {
     //
     try {
         let sgx_hmac = await sgxHmacUserPassword(formDetails.password);
-        alertify.success("SGX HMAC: " + sgx_hmac);
+        // alertify.success("SGX HMAC: " + sgx_hmac);
     } catch (error) {
         console.error(error);
     }

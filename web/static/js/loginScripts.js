@@ -18,7 +18,7 @@ async function btnClick() {
     //
     try {
         let sgx_hmac = await sgxHmacUserPassword(formDetails.password);
-        alertify.message("SGX HMAC: " + sgx_hmac);
+        //alertify.message("SGX HMAC: " + sgx_hmac);
 
 
         // qwertyuiop --hmac--> c503d26078d6f41943cc1b440ccb71c6023fa4b0ae6d9a9c9abc4e9a7962bf5d
