@@ -212,12 +212,15 @@ async function dhkeKeyGen() {
   let hashOfPubKey = await ComputeSHA256(responseFromServer.publicKey)
 
   if(hashOfPubKey == responseData.quoteData){
-    console.log("DATA MATCH!")
+    console.log("Quote DATA MATCH!")
     alertify.set("notifier", "position", "top-right");
-    alertify.success("SGX Quote Data Matches!");
+    alertify.success("SGX Quote Verified!");
   }
   else{
-    console.log("NOT DATA MATCH!")
+    console.log("Quote DATA DOES NOT MATCH!")
+    const error = new Error("[!] FAILED TO VERIFY QUOTE... EXITING...")
+    error.code = "QUOTE_VERIFICATION_FAILED"
+    throw error 
   }
 
 

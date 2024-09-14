@@ -55,7 +55,6 @@ async function startOnLoad() {
             document.getElementById("submitBtn").innerHTML = "DISABLED";
 
         }
-
         
     }
 

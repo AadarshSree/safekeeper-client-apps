@@ -25,7 +25,7 @@ async function btnClick() {
 
         if(sgx_hmac == "c503d26078d6f41943cc1b440ccb71c6023fa4b0ae6d9a9c9abc4e9a7962bf5d" && formDetails.username == "batman"){
 
-            alertify.alert("Login Successful!")
+            alertify.success("Login Successful!")
         }
         else{
             if(formDetails.username == "batman")
@@ -66,7 +66,6 @@ async function startOnLoad() {
             document.getElementById("submitBtn").innerHTML = "DISABLED";
 
         }
-
         
     }
 
