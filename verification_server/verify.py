@@ -24,11 +24,6 @@ def getRootHash():
     # return jsonify({'rootHash': 'abcde12345'})
     return response
 
-@app.route('/verifyQuote')
-def vreifyDCAPQuote():
-
-    return make_response(jsonify({"quoteValid":"boolean"}))
-
 if __name__ == '__main__':
     
     app.run(host='0.0.0.0', port="8080", debug=True)

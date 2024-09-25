@@ -9,7 +9,6 @@ app = Flask(__name__ ,
             static_folder='web/static')
 
 HOST_NAME = "keen.csrl.info"
-# HOST_NAME = "safekeeper.dev"
 PORT = "8080"
 
 
@@ -54,21 +53,21 @@ def add_header(response):
         response.headers['x-content-type-options'] = 'nosniff'
     return response
 
-@app.route('/codeverify')
-def getRootHash():
-    # {"origin":"whatsapp.com","version":"1015251365","root_hash":"d001608791c63855dd0059a788cc68df66f2f61576f55aec57435554b201d26a","published_date":1722326107}
-    jsonResponse = {"origin":"keen.csrl.info",
-                    "version":"11223344",
-                    "root_hash":"8bdf484ba85de6ada347805c19a25cd5874257ac892eed3ff14389cb06bf2a08",
-                    "published_date":1722353508}
-    response = make_response(jsonify(jsonResponse))
+# @app.route('/codeverify')
+# def getRootHash():
+#     # {"origin":"whatsapp.com","version":"1015251365","root_hash":"d001608791c63855dd0059a788cc68df66f2f61576f55aec57435554b201d26a","published_date":1722326107}
+#     jsonResponse = {"origin":"keen.csrl.info",
+#                     "version":"11223344",
+#                     "root_hash":"8bdf484ba85de6ada347805c19a25cd5874257ac892eed3ff14389cb06bf2a08",
+#                     "published_date":1722353508}
+#     response = make_response(jsonify(jsonResponse))
 
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    # response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+#     # response.headers.add('Access-Control-Allow-Origin', '*')
+#     # response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+#     # response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
     
-    # return jsonify({'rootHash': 'abcde12345'})
-    return response
+#     # return jsonify({'rootHash': 'abcde12345'})
+#     return response
 
 
 @app.route('/generateManifest')
@@ -127,6 +126,7 @@ def generate_cv_manifest():
 
 
 if __name__ == '__main__':
-    context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
-    app.run(host='0.0.0.0', port=PORT, ssl_context = context , debug=True) # do not use this line on PROD SERVER AS HTTPS IS CONFIGURED IN APACHE
+    app.run(host='0.0.0.0', port=PORT, debug=True)
+    # context = ('./.SSL_KEYS/cert.pem', './.SSL_KEYS/key.pem')
+    # app.run(host='0.0.0.0', port=PORT, ssl_context = context , debug=True) # do not use this line on PROD SERVER AS HTTPS IS CONFIGURED IN APACHE
     # app.run(host='0.0.0.0', port=PORT, debug=True)
