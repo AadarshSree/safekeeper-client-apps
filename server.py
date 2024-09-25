@@ -70,6 +70,8 @@ def add_header(response):
 #     return response
 
 
+
+
 @app.route('/generateManifest')
 def generate_cv_manifest():
     # build_path = "./web/static/js"
